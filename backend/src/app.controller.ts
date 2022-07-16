@@ -18,7 +18,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Express } from 'express';
-import { Blob } from 'buffer';
 import { AppService } from './app.service';
 import { FileDataDto } from './dtos/file-data.dto';
 import { SetMetadataDto } from './dtos/set-metadata.dto';
@@ -87,6 +86,29 @@ export class AppController {
   async getData(@Param('id') id: number) {
     try {
       const result = this.appService.get(id);
+      return result;
+    } catch (error) {
+      throw new HttpException(error.message, 503);
+    }
+  }
+
+  @Get('metadata/:id')
+  @ApiOperation({
+    summary: 'Get metadata by id',
+    description: 'Gets the metadata at the requested index',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Metadata',
+  })
+  @ApiResponse({
+    status: 503,
+    description: 'The server is not configured correctly',
+    type: HttpException,
+  })
+  async getMetadata(@Param('id') id: number) {
+    try {
+      const result = this.appService.getMetadata(id);
       return result;
     } catch (error) {
       throw new HttpException(error.message, 503);
