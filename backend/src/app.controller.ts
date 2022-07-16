@@ -22,6 +22,8 @@ import { AppService } from './app.service';
 import { FileDataDto } from './dtos/file-data.dto';
 import { SetMetadataDto } from './dtos/set-metadata.dto';
 import { UploadIpfsDto } from './dtos/upload-ipfs.dto';
+import { MetadataDto } from './dtos/metadata.dto';
+import { generateSlug } from 'random-word-slugs';
 
 @ApiTags('file')
 @Controller()
@@ -209,8 +211,19 @@ export class AppController {
       file.filename,
       file.size,
     );
+    const metadata = new MetadataDto();
+    metadata.author = generateSlug(2, { format: 'title' });
+    metadata.class = generateSlug(3, { format: 'kebab' });
+    metadata.description = generateSlug(8, { format: 'sentence' });
+    metadata.name = generateSlug(2, { format: 'title' });
+    metadata.score = parseFloat((Math.random() * 100).toFixed(2));
+    metadata.timestamp = new Date().getTime();
+    metadata.type = generateSlug(1, { format: 'camel' });
+
     const savedObj = this.appService.pushFile(fileData);
-    return savedObj;
+    this.appService.setMetadata(savedObj, metadata);
+    const result = this.appService.saveToIpfs(savedObj);
+    return result;
   }
 
   @Post('metadata')
