@@ -7,14 +7,21 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract MyNFT is ERC721, AccessControl, ERC721Burnable {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    uint256 private tokenCounter;
 
     constructor() ERC721("MyToken", "MTK") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
+        tokenCounter = 0;
     }
 
-    function safeMint(address to, uint256 tokenId) public onlyRole(MINTER_ROLE) {
-        _safeMint(to, tokenId);
+    function _baseURI() internal view virtual override returns (string memory) {
+        return "http://localhost:3000/";
+    }
+
+    function safeMint(address _to) public onlyRole(MINTER_ROLE) {
+        _safeMint(_to, tokenCounter);
+        tokenCounter++;
     }
 
     // The following functions are overrides required by Solidity.
