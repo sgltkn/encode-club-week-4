@@ -1,24 +1,21 @@
+import { Contract, ethers } from 'ethers';
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NftCard from './NftCard';
 
 function App() {
+  const nftCards = () => {
+    const nftCardList = Array<React.ReactElement>();
+    for (let i = 0; i < 10; i++) {
+      nftCardList.push(<NftCard nftIndex={i} />);
+    }
+    return nftCardList;
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header">NFT LIST</header>
+      <div className="nft-cards">{nftCards()}</div>
     </div>
   );
 }
