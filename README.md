@@ -3,6 +3,7 @@
 1. NFT Contract updated and new contract deployed to `0x7Cb751d92f6e1007064914E4854EF8EE6e388234`.
 
 2. 10 NFTs are minted and transcation hash for those: (used command `yarn run ts-node --files ./scripts/mintTokens.ts`)
+
 ```
 Using address 0x6E68E739Aed03b16eC49D7dc37Af0669B64e4467
 Transaction hash for NFT-0: 0x937fab5c3433c353df161fd39fe7af366c41302709919ef1b4c45ee50e6565c9
@@ -26,3 +27,5 @@ tokenURI for respective NFT is: http://localhost:3000/8
 Transaction hash for NFT-9: 0xe8eef5efa7ce12854951c8a0a5c2468aad1d0cee7c0ebedafe476a6173a1759d
 tokenURI for respective NFT is: http://localhost:3000/9
 ```
+
+3- https://i.imgur.com/R2Nwqlu.png
